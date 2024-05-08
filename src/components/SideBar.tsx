@@ -1,7 +1,8 @@
 'use client';
 
 import { DRAWER_WIDTH } from '@/constants/layout-constants';
-import SideBarComponentProps from '@/models/SideBarComponentProps';
+import BaseComponentProps from '@/models/BaseComponentProps';
+import { ToogleClickEvent } from '@/models/CustomHTMLEvent';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MailIcon from '@mui/icons-material/Mail';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
@@ -83,9 +84,16 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-function SideBar(props: Readonly<SideBarComponentProps>) {
-  const { open, onClose, children } = props;
+export interface SideBarComponentProps extends BaseComponentProps {
+  open: boolean;
+  onClose?: (event: ToogleClickEvent) => void;
+}
 
+export const SideBar: React.FC<SideBarComponentProps> = ({
+  open,
+  onClose,
+  children,
+}) => {
   const handleDrawerClose = (event: React.PointerEvent<HTMLButtonElement>) => {
     if (typeof onClose === 'function') {
       onClose({ ...event, value: !open });
@@ -157,6 +165,6 @@ function SideBar(props: Readonly<SideBarComponentProps>) {
       </Box>
     </Box>
   );
-}
+};
 
 export default React.memo(SideBar);
