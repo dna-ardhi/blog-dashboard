@@ -1,7 +1,6 @@
 'use client';
 
 import { DRAWER_WIDTH } from '@/constants/layout-constants';
-import TopBarComponentProps from '@/models/TopBarComponentProps';
 import {
   Box,
   IconButton,
@@ -18,7 +17,6 @@ import Avatar from './Avatar';
 
 const drawerWidth = DRAWER_WIDTH;
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -45,9 +43,17 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-function TopBar(props: Readonly<TopBarComponentProps>) {
-  const { isSideMenuOpen } = props;
+export interface TopBarComponentProps {
+  /**
+   * State for check sidebar current status
+   */
+  isSideMenuOpen?: boolean;
+}
 
+/**
+ * Primary UI component for user Top Bar
+ */
+export const TopBar: React.FC<TopBarComponentProps> = ({ isSideMenuOpen }) => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null,
   );
@@ -100,6 +106,6 @@ function TopBar(props: Readonly<TopBarComponentProps>) {
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default React.memo(TopBar);
