@@ -19,9 +19,10 @@ function DashboardLayout(props: Readonly<{ children: React.ReactNode }>) {
       <Box display="flex">
         <CssBaseline />
         <TopBar isSideMenuOpen={sideBarOpen} />
-        <SideBar open={sideBarOpen} onClose={onSideBarClose} />
+        <SideBar open={sideBarOpen} onClose={onSideBarClose}>
+          {props.children}
+        </SideBar>
       </Box>
-      {props.children}
     </RenderOnClient>
   );
 }

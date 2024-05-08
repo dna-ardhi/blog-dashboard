@@ -2,11 +2,22 @@
 
 import { DRAWER_WIDTH } from '@/constants/layout-constants';
 import TopBarComponentProps from '@/models/TopBarComponentProps';
-import { styled, Toolbar, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  styled,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import React from 'react';
+import Avatar from './Avatar';
 
 const drawerWidth = DRAWER_WIDTH;
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
@@ -37,12 +48,55 @@ const AppBar = styled(MuiAppBar, {
 function TopBar(props: Readonly<TopBarComponentProps>) {
   const { isSideMenuOpen } = props;
 
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null,
+  );
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
   return (
     <AppBar position="fixed" open={isSideMenuOpen}>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          Mini variant drawer
-        </Typography>
+        <Box sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" noWrap component="div">
+            Mini variant drawer
+          </Typography>
+        </Box>
+        <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar fullName="Remy Sharp" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   );
