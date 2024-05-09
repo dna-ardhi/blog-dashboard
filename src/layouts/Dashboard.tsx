@@ -4,7 +4,7 @@ import SideBar from '@/components/SideBar';
 import TopBar from '@/components/TopBar';
 import RenderOnClient from '@/helpers/RenderOnClient';
 import { ToogleClickEvent } from '@/models/CustomHTMLEvent';
-import { Box, CssBaseline } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 
 function DashboardLayout(props: Readonly<{ children: React.ReactNode }>) {
@@ -17,7 +17,6 @@ function DashboardLayout(props: Readonly<{ children: React.ReactNode }>) {
   return (
     <RenderOnClient>
       <Box display="flex">
-        <CssBaseline />
         <TopBar isSideMenuOpen={sideBarOpen} />
         <SideBar open={sideBarOpen} onClose={onSideBarClose}>
           {props.children}
