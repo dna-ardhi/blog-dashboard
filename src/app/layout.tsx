@@ -1,5 +1,6 @@
-import Dashboard from '@/layouts/Dashboard';
+import RenderOnClient from '@/helpers/RenderOnClient';
 import '@/scss/styles.scss';
+import { CssBaseline } from '@mui/material';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Dashboard>{children}</Dashboard>
+        <RenderOnClient>
+          <CssBaseline />
+        </RenderOnClient>
+        {children}
       </body>
     </html>
   );
