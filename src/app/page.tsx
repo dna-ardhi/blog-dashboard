@@ -1,4 +1,3 @@
-import TestClientComponent from '@/components/TestClientComponent';
 import Link from 'next/link';
 
 const PATHS = [
@@ -23,7 +22,6 @@ export default function Home() {
           </li>
         ))}
       </ul>
-      <TestClientComponent />
     </main>
   );
 }

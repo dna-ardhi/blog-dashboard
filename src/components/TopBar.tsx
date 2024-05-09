@@ -15,7 +15,7 @@ import {
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Link from 'next/link';
 import React from 'react';
-import Avatar from './Avatar';
+import Avatar from './dataDisplay/Avatar';
 
 const drawerWidth = DRAWER_WIDTH;
 const settings: IMenuItem[] = [

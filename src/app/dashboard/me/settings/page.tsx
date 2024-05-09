@@ -1,4 +1,6 @@
-import AttributeTable, { AttributeField } from '@/components/AttributeTable';
+import AttributeTable, {
+  AttributeField,
+} from '@/components/dataDisplay/AttributeTable';
 import { Container, Typography } from '@mui/material';
 
 const DUMMYFIELDS: AttributeField[] = [

@@ -1,4 +1,7 @@
-import { AttributeField, AttributeTable } from '@/components/AttributeTable';
+import {
+  AttributeField,
+  AttributeTable,
+} from '@/components/dataDisplay/AttributeTable';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
