@@ -1,0 +1,24 @@
+.page-container {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.center {
+  justify-content: center;
+}
+
+.middle {
+  align-items: center;
+}

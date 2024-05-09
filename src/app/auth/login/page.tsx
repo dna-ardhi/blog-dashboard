@@ -1,7 +1,9 @@
+import FormAuth from '../_components/FormAuth';
+
 export default function Login() {
   return (
-    <div className="page-container center middle">
-      <h2>This is login page</h2>
+    <div className="page-container center middle flex flex-column">
+      <FormAuth />
     </div>
   );
 }
