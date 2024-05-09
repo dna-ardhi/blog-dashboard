@@ -1,6 +1,7 @@
 'use client';
 
 import { DRAWER_WIDTH } from '@/constants/layout-constants';
+import IMenuItem from '@/models/IMenuItem';
 import {
   Box,
   IconButton,
@@ -12,11 +13,26 @@ import {
   Typography,
 } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import Link from 'next/link';
 import React from 'react';
 import Avatar from './Avatar';
 
 const drawerWidth = DRAWER_WIDTH;
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings: IMenuItem[] = [
+  {
+    label: 'Account',
+    path: '/me/settings',
+  },
+  {
+    label: 'Dashboard',
+    path: '/',
+  },
+  {
+    label: 'Log Out',
+    path: '/',
+  },
+];
+
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
@@ -97,8 +113,13 @@ export const TopBar: React.FC<TopBarComponentProps> = ({ isSideMenuOpen }) => {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">{setting}</Typography>
+              <MenuItem
+                key={setting.label}
+                onClick={handleCloseUserMenu}
+                component={Link}
+                href={setting.path}
+              >
+                <Typography textAlign="center">{setting.label}</Typography>
               </MenuItem>
             ))}
           </Menu>
