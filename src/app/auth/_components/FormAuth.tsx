@@ -1,28 +1,39 @@
 'use client';
 
+import TextField from '@/components/inputs/TextField';
 import RenderOnClient from '@/helpers/RenderOnClient';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import {
   Box,
   Button,
   Card,
   CardContent,
-  IconButton,
-  InputAdornment,
-  TextField,
+  Link,
   Typography,
 } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
-import React, { MouseEvent, useState } from 'react';
+import NavigateLink from 'next/link';
+import { useRouter } from 'next/navigation';
+import React, { useCallback } from 'react';
 
-const FormAuth: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
+interface FormAuthProps {
+  variant: 'login' | 'register';
+}
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+const FormAuth: React.FC<FormAuthProps> = ({ variant }) => {
+  const router = useRouter();
 
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const generatePaths = useCallback(() => {
+    const paths = {
+      login: '/auth/register',
+      register: '/auth/login',
+    };
+
+    return paths[variant];
+  }, [variant]);
+
+  const submit = useCallback(() => {
+    router.push('/dashboard');
+  }, [router]);
 
   return (
     <RenderOnClient>
@@ -33,41 +44,50 @@ const FormAuth: React.FC = () => {
           </Typography>
         </Box>
         <CardContent component="form">
-          <Grid2 container direction="column" spacing={2}>
-            <Grid2>
+          <Grid2 container spacing={2}>
+            {variant === 'register' && (
+              <>
+                <Grid2 xs={6}>
+                  <TextField type="text" id="first_name" label="First Name" />
+                </Grid2>
+                <Grid2 xs={6}>
+                  <TextField type="text" id="last_name" label="Last Name" />
+                </Grid2>
+              </>
+            )}
+            <Grid2 xs={12}>
               <TextField
                 type="email"
-                fullWidth
                 id="email_address"
                 label="Email Address"
               />
             </Grid2>
-            <Grid2>
-              <TextField
-                fullWidth
-                id="password"
-                label="password"
-                type={showPassword ? 'text' : 'password'}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+            <Grid2 xs>
+              <TextField type="password" id="password" label="Password" />
             </Grid2>
-            <Grid2>
-              <Button fullWidth variant="contained">
-                Login
+            {variant === 'register' && (
+              <Grid2 xs={12}>
+                <TextField
+                  type="password"
+                  id="confirm_password"
+                  label="Confirm Password"
+                />
+              </Grid2>
+            )}
+            <Grid2 xs={12}>
+              <Button
+                fullWidth
+                variant="contained"
+                type="button"
+                onClick={submit}
+              >
+                {variant === 'register' ? 'Register' : 'Login'}
               </Button>
+            </Grid2>
+            <Grid2 textAlign="center" xs={12}>
+              <Link component={NavigateLink} href={generatePaths()}>
+                {variant === 'register' ? 'Login' : 'Create Account'}
+              </Link>
             </Grid2>
           </Grid2>
         </CardContent>
